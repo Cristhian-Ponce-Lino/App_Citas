@@ -101,6 +101,7 @@ def formar_parejas(usuarios):
         print("Se necesitan más mujeres para formar parejas.")
         restantes_hombres = hombres[len(mujeres):]
         random.shuffle(mujeres)
+        random.shuffle(hombres)
 
         parejas = list(zip(hombres[:len(mujeres)], mujeres))
 
@@ -116,6 +117,7 @@ def formar_parejas(usuarios):
         print("Se necesitan más hombres para formar parejas.")
         restantes_mujeres = mujeres[len(hombres):]
         random.shuffle(hombres)
+        random.shuffle(mujeres)
 
         parejas = list(zip(hombres, mujeres[:len(hombres)]))
 
