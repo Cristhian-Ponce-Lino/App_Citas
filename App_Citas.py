@@ -1,7 +1,8 @@
 import random
 from datetime import datetime
 
-#Clase persona
+
+# Clase persona
 class Persona:
     def __init__(self, nombres, apellidos, fecha_nacimiento, sexo, cedula):
         self.nombres = nombres
@@ -10,20 +11,25 @@ class Persona:
         self.sexo = sexo
         self.cedula = cedula
 
-#Calcular edad
+
+# Calcular edad
 def calcular_edad(fecha_nacimiento):
     hoy = datetime.now()
     nacimiento = datetime.strptime(fecha_nacimiento, '%d-%m-%Y')
     edad = hoy.year - nacimiento.year - ((hoy.month, hoy.day) < (nacimiento.month, nacimiento.day))
     return edad
 
-#Método CRUD (Agregar - Actualizar - Eliminar)
+
+# Método CRUD (Agregar - Actualizar - Eliminar)
 def agregar_usuario(usuarios):
     nombres = input("Nombres: ")
     apellidos = input("Apellidos: ")
     fecha_nacimiento = input("Fecha de nacimiento (DD-MM-YYYY): ")
     sexo = input("Sexo (M/F): ").upper()
     cedula = input("Cédula: ")
+    while len(cedula) != 10 or not cedula.isdigit():
+        print("La cédula debe contener 10 números.")
+        cedula = input("Cédula: ")
 
     # Validar edad
     if calcular_edad(fecha_nacimiento) < 18:
@@ -43,6 +49,7 @@ def agregar_usuario(usuarios):
     nuevo_usuario = Persona(nombres, apellidos, fecha_nacimiento, sexo, cedula)
     usuarios.append(nuevo_usuario)
     print("Usuario agregado correctamente.")
+
 
 def actualizar_usuario(usuarios):
     cedula = input("Ingresa la cédula del usuario que deseas actualizar: ")
@@ -73,6 +80,7 @@ def actualizar_usuario(usuarios):
     else:
         print("No se encontró ningún usuario con esa cédula.")
 
+
 def eliminar_usuario(usuarios):
     cedula = input("Ingresa la cédula del usuario que deseas eliminar: ")
     usuario_existente = next((usuario for usuario in usuarios if usuario.cedula == cedula), None)
@@ -84,7 +92,7 @@ def eliminar_usuario(usuarios):
         print("No se encontró ningún usuario con esa cédula.")
 
 
-#Formar parejas
+# Formar parejas
 def formar_parejas(usuarios):
     hombres = [usuario for usuario in usuarios if usuario.sexo == 'M']
     mujeres = [usuario for usuario in usuarios if usuario.sexo == 'F']
@@ -135,7 +143,7 @@ def formar_parejas(usuarios):
 
 usuarios = []
 
-#Menú
+# Menú
 while True:
     print("\nMenú:")
     print("1. Agregar usuario")
@@ -143,9 +151,9 @@ while True:
     print("3. Eliminar usuario")
     print("4. Formar parejas")
     print("0. Salir")
-    
+
     opcion = input("Selecciona una opción: ")
-    
+
     if opcion == '1':
         agregar_usuario(usuarios)
     elif opcion == '2':
